@@ -27,7 +27,8 @@ public class BeatNode : ManageableObject
     [HideInInspector]
     public int damage;
 
-    private float activeTimer = 0.1f;
+    private float activeTimerMax = 0.2f;
+    private float activeTimer = 0f;
 
     // Start is called before the first frame update
     public override void OnStart()
@@ -54,7 +55,14 @@ public class BeatNode : ManageableObject
     // Update is called once per frame
     public override void OnUpdate()
     {
-        
+        if (activeTimer > 0)
+        {
+            activeTimer -= Time.deltaTime;
+            if (activeTimer <= 0)
+            {
+                ToggleFaded(true);
+            }
+        }
     }
 
     public void OnBeat(int beat)
@@ -126,6 +134,7 @@ public class BeatNode : ManageableObject
             neutral.color = defaultColorNeutral;
             activeA.color = defaultColorA;
             activeB.color = defaultColorB;
+            activeTimer = activeTimerMax;
         }
     }
 }

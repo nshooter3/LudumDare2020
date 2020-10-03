@@ -84,6 +84,26 @@ MonoBehaviour:
   - Name: Desktop
     Value: 672
   Exists: 1
+--- !u!114 &-531066664557732418
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master Bank.strings.bank
+  m_EditorClassIdentifier: 
+  Path: FmodBuild/Desktop/Master Bank.strings.bank
+  SubDir: 
+  lastModified: 637372861448592352
+  LoadResult: 0
+  FileSizes:
+  - Name: Desktop
+    Value: 722
+  Exists: 1
 --- !u!114 &-199270134900519578
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,17 +135,35 @@ MonoBehaviour:
   m_Name: FMODStudioCache
   m_EditorClassIdentifier: 
   EditorBanks:
-  - {fileID: 8206674903839665736}
-  - {fileID: -199270134900519578}
+  - {fileID: -531066664557732418}
+  - {fileID: 7207458967568309115}
   EditorEvents:
-  - {fileID: -5255126258299292321}
+  - {fileID: 6640132589436246200}
   EditorParameters: []
   MasterBanks:
-  - {fileID: -199270134900519578}
+  - {fileID: 7207458967568309115}
   StringsBanks:
-  - {fileID: 8206674903839665736}
-  stringsBankWriteTime: 637372735523761716
+  - {fileID: -531066664557732418}
+  stringsBankWriteTime: 637372861448592352
   cacheVersion: 3
+--- !u!114 &26663817825582962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master Bank.bank
+  m_EditorClassIdentifier: 
+  Path: FmodBuild/Desktop/Master Bank.bank
+  SubDir: 
+  lastModified: 637372859448214726
+  LoadResult: 0
+  FileSizes: []
+  Exists: 0
 --- !u!114 &1029543373393625801
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,6 +220,29 @@ MonoBehaviour:
   LoadResult: 0
   FileSizes: []
   Exists: 1
+--- !u!114 &6640132589436246200
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/BattleTheme
+  m_EditorClassIdentifier: 
+  Path: event:/BattleTheme
+  guid: 916ddfe9cfb4cf4e8f2107c0fdfc9211
+  Banks:
+  - {fileID: 7207458967568309115}
+  IsStream: 1
+  Is3D: 0
+  IsOneShot: 0
+  Parameters: []
+  MinDistance: 0
+  MaxDistance: 0
+  Length: 10909
 --- !u!114 &7114915972874344352
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,6 +266,24 @@ MonoBehaviour:
   MinDistance: 0
   MaxDistance: 0
   Length: 2727
+--- !u!114 &7207458967568309115
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c18180ecb35941f4682ae60107b85b7c, type: 3}
+  m_Name: bank:/Master Bank.bank
+  m_EditorClassIdentifier: 
+  Path: FmodBuild/Desktop/Master Bank.bank
+  SubDir: 
+  lastModified: 637372861448542492
+  LoadResult: 0
+  FileSizes: []
+  Exists: 1
 --- !u!114 &7320043778868424548
 MonoBehaviour:
   m_ObjectHideFlags: 0
