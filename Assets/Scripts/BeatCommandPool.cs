@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BeatCommandPool : ManageableObject
 {
+    public static BeatCommandPool instance;
+
     private List<BeatCommand> beatCommands;
 
     public GameObject beatCommandPrefab;
@@ -11,6 +13,18 @@ public class BeatCommandPool : ManageableObject
     private GameObject tempBeatCommand;
 
     public int size = 20;
+
+    public override void OnAwake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public override void OnStart()
     {
@@ -52,5 +66,19 @@ public class BeatCommandPool : ManageableObject
             }
         }
         return null;
+    }
+
+    public bool IsInputValid(RhythmTracker.BeatCommandId id)
+    {
+        foreach (BeatCommand beatCommand in beatCommands)
+        {
+            if (beatCommand.isAcceptingInput && (RhythmTracker.BeatCommandId) beatCommand.id == id)
+            {
+                //TODO: Damage enemy
+                beatCommand.Reset();
+                return true;
+            }
+        }
+        return false;
     }
 }

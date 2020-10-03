@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
+using HarmonyQuest.Audio;
 
 public class BeatCommand : MonoBehaviour
 {
@@ -25,9 +26,18 @@ public class BeatCommand : MonoBehaviour
     private float activeTimerMax = 0.15f;
     private float activeTimer = 0f;
 
+    private float startInputTimerMax;
+    private float startInputTimer;
+
+    private float stopInputTimerMax;
+    private float stopInputTimer;
+
     // Start is called before the first frame update
     public void OnStart()
     {
+        startInputTimerMax = FmodMusicHandler.instance.GetBeatDuration() / 2f;
+        stopInputTimerMax  = FmodMusicHandler.instance.GetBeatDuration() / 2f;
+
         defaultColors = new Color[activeImages.Length];
         fadedColors = new Color[activeImages.Length];
         for (int i = 0; i < activeImages.Length; i++)
@@ -53,10 +63,35 @@ public class BeatCommand : MonoBehaviour
                 ToggleFaded(true);
             }
         }
+        if (startInputTimer > 0)
+        {
+            startInputTimer -= Time.deltaTime;
+            if (startInputTimer <= 0)
+            {
+                isAcceptingInput = true;
+            }
+        }
+        if (stopInputTimer > 0)
+        {
+            stopInputTimer -= Time.deltaTime;
+            if (stopInputTimer <= 0)
+            {
+                isAcceptingInput = false;
+            }
+        }
     }
 
     public void OnBeat()
     {
+        if (startInputTimerMax > 1000f)
+        {
+            startInputTimerMax = FmodMusicHandler.instance.GetBeatDuration() / 2f;
+        }
+        if (stopInputTimerMax > 1000f)
+        {
+            stopInputTimerMax = FmodMusicHandler.instance.GetBeatDuration() / 2f;
+        }
+
         if (isActive)
         {
             if (beatDelay == 2)
@@ -64,10 +99,15 @@ public class BeatCommand : MonoBehaviour
                 ToggleIsVisible(true);
             }
 
+            if (beatDelay == 1)
+            {
+                startInputTimer = startInputTimerMax;
+            }
+
             if (beatDelay == 0)
             {
                 ToggleFaded(false);
-                isAcceptingInput = true;
+                stopInputTimer = stopInputTimerMax;
             }
             else if (beatDelay < 0)
             {
@@ -122,5 +162,7 @@ public class BeatCommand : MonoBehaviour
         isAcceptingInput = false;
         damage = 0;
         beatDelay = 0;
+        startInputTimer = 0;
+        stopInputTimer = 0;
     }
 }

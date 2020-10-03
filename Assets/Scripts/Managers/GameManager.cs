@@ -6,9 +6,10 @@
     public class GameManager : MonoBehaviour
     {
         //References to the prefabs we're gonna load into these objects later.
-        public GameObject FmodHandler;
-        public GameObject RewiredInputManager;
-        public GameObject Canvas;
+        public GameObject fmodHandler;
+        public GameObject rewiredInputManager;
+        public GameObject canvas;
+        public GameObject playerController;
 
         //The master list of all the objects that need to be updated, in order.
         private ObjectManager objectManager = new ObjectManager();
@@ -16,21 +17,24 @@
         private void PopulateUpdateQueue()
         {
             //Initialize all our one-of manageable objects that need to be in every scene.
-            FmodHandler = Instantiate(FmodHandler);
-            RewiredInputManager = Instantiate(RewiredInputManager);
-            Canvas = Instantiate(Canvas);
+            fmodHandler = Instantiate(fmodHandler);
+            rewiredInputManager = Instantiate(rewiredInputManager);
+            canvas = Instantiate(canvas);
+            playerController = Instantiate(playerController);
 
-            objectManager.AddManageableObject(FmodHandler.GetComponent<FmodFacade>());
-            objectManager.AddManageableObject(FmodHandler.GetComponent<FmodMusicHandler>());
-            objectManager.AddManageableObject(FmodHandler.GetComponent<FmodOnBeatAccuracyChecker>());
-            objectManager.AddManageableObject(FmodHandler.GetComponent<FmodChordInterpreter>());
+            objectManager.AddManageableObject(fmodHandler.GetComponent<FmodFacade>());
+            objectManager.AddManageableObject(fmodHandler.GetComponent<FmodMusicHandler>());
+            objectManager.AddManageableObject(fmodHandler.GetComponent<FmodOnBeatAccuracyChecker>());
+            objectManager.AddManageableObject(fmodHandler.GetComponent<FmodChordInterpreter>());
             objectManager.FindManageableObjectsInScene<FmodEventHandler>();
 
-            objectManager.AddManageableObject(RewiredInputManager.GetComponent<RewiredPlayerInputManager>());
+            objectManager.AddManageableObject(rewiredInputManager.GetComponent<RewiredPlayerInputManager>());
+
+            objectManager.AddManageableObject(playerController.GetComponent<PlayerController>());
 
             objectManager.FindManageableObjectsInScene<BeatCommandPool>();
 
-            objectManager.AddManageableObject(Canvas.GetComponentInChildren<RhythmTracker>());
+            objectManager.AddManageableObject(canvas.GetComponentInChildren<RhythmTracker>());
             objectManager.FindManageableObjectsInScene<BeatNode>();
         }
 

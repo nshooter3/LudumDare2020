@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class RewiredPlayerInputManager : ManageableObject
 {
+    public static RewiredPlayerInputManager instance;
+
     // The Rewired player id. Currently, this will always be 0.
     private int playerId = 0;
 
@@ -14,6 +16,14 @@ public class RewiredPlayerInputManager : ManageableObject
 
     public override void OnAwake()
     {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
         // Get the Rewired Player object for this player and keep it for the duration of the character's lifetime
         player = ReInput.players.GetPlayer(playerId);
     }

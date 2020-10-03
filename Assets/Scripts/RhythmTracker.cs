@@ -15,8 +15,6 @@ public class RhythmTracker : ManageableObject
 
     public List<BeatNode> beatNodes;
 
-    public BeatCommandPool beatCommandPool;
-
     [HideInInspector]
     public int beat = 0;
     private int maxBeat = 8;
@@ -64,7 +62,7 @@ public class RhythmTracker : ManageableObject
         if (commandQueue != null)
         {
             beatNodes.ForEach(a => a.OnBeat(beat));
-            beatCommandPool.OnBeat(beat);
+            BeatCommandPool.instance.OnBeat(beat);
         }
     }
 
@@ -89,7 +87,7 @@ public class RhythmTracker : ManageableObject
             int measureOffset = 1 + (i / 8);
             int delay = maxBeat * measureOffset + beatOffset;
 
-            beatCommandPool.StartBeatCommand(delay, 10, commandQueue[i], beatNodes[beatOffset].transform.position);
+            BeatCommandPool.instance.StartBeatCommand(delay, 10, commandQueue[i], beatNodes[beatOffset].transform.position);
         }
     }
 
