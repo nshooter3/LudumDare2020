@@ -12,7 +12,10 @@ public class BeatNode : ManageableObject
     private Color defaultColorA, defaultColorB;
     private Color fadedColorA, fadedColorB;
 
-    public int activeBeat;
+    [HideInInspector]
+    public bool isAWaitingToAct;
+    [HideInInspector]
+    public bool isBWaitingToAct;
 
     [HideInInspector]
     public bool isAActive;
@@ -29,6 +32,8 @@ public class BeatNode : ManageableObject
 
     private float activeTimerMax = 0.2f;
     private float activeTimer = 0f;
+
+    private int beatDelay;
 
     // Start is called before the first frame update
     public override void OnStart()
@@ -65,47 +70,65 @@ public class BeatNode : ManageableObject
         }
     }
 
-    public void OnBeat(int beat)
+    public void OnBeat()
     {
-        int beatDif = activeBeat - beat;
-        if ((beatDif < 3 && beatDif > 0) || beatDif < -6)
+        if (isAWaitingToAct || isBWaitingToAct)
         {
-            ToggleAIsVisible(true);
-            ToggleBIsVisible(true);
-        }
-        else
-        {
-            ToggleAIsVisible(false);
-            ToggleBIsVisible(false);
-        }
+            if (beatDelay <= 2)
+            {
+                Debug.Log("BEAT SHOW");
+                ToggleAIsVisible(true);
+                ToggleBIsVisible(true);
+            }
 
-        if (beat == activeBeat)
-        {
-            ToggleFaded(false);
-        }
-        else
-        {
-            ToggleFaded(true);
+            if (beatDelay == 0)
+            {
+                Debug.Log("BEAT");
+                ToggleFaded(false);
+                if (isAWaitingToAct)
+                {
+                    isAActive = true;
+                }
+                if (isBWaitingToAct)
+                {
+                    isBActive = true;
+                }
+            }
+            else if (beatDelay < 0)
+            {
+                ToggleAIsVisible(false);
+                ToggleBIsVisible(false);
+                ToggleFaded(true);
+                if (isAWaitingToAct)
+                {
+                    isAActive = false;
+                }
+                if (isBWaitingToAct)
+                {
+                    isBActive = false;
+                }
+            }
+            beatDelay--;
         }
     }
 
-    public void ToggleIsAActive(bool active, int damage)
+    public void DelayedActivateA(int delay, int damage)
     {
-        isAActive = active;
-        ToggleFaded(isAActive);
-        damage = 0;
+        beatDelay = delay;
+        isAWaitingToAct = true;
+        this.damage = damage;
     }
 
-    public void ToggleIsBActive(bool active, int damage)
+    public void DelayedActivateB(int delay, int damage)
     {
-        isBActive = active;
-        ToggleFaded(isBActive);
-        damage = 0;
+        beatDelay = delay;
+        isBWaitingToAct = true;
+        this.damage = damage;
     }
 
     public void ToggleAIsVisible(bool visible)
     {
-        if (isAActive)
+        if (isAWaitingToAct)
         {
             isAVisible = visible;
             activeA.enabled = visible;
@@ -114,7 +137,7 @@ public class BeatNode : ManageableObject
 
     public void ToggleBIsVisible(bool visible)
     {
-        if (isBActive)
+        if (isBWaitingToAct)
         {
             isBVisible = visible;
             activeB.enabled = visible;

@@ -19,12 +19,17 @@ public class RhythmTracker : ManageableObject
     public int beat = 0;
     private int maxBeat = 8;
 
+    private List<string> commandQueue = null;
+    private List<string> mainMenu = new List<string> { "a", "", "a", "", "b", "", "b", "" };
+
+    string command;
+
     // Start is called before the first frame update
     public override void OnStart()
     {
         FmodMusicHandler.instance.AssignFunctionToOnBeatDelegate(OnBeat);
         needleEulerAngles = needle.transform.eulerAngles;
-        RestartTimer();
+        OnMeasure();
     }
 
     // Update is called once per frame
@@ -51,19 +56,49 @@ public class RhythmTracker : ManageableObject
             OnMeasure();
         }
         beat++;
-        beatNodes.ForEach(a => a.OnBeat(beat));
-        Debug.Log("BEAT: " + beat);
+        if (commandQueue != null)
+        {
+            beatNodes.ForEach(a => a.OnBeat());
+        }
     }
 
     public void OnMeasure()
     {
         beat = 0;
         RestartTimer();
+        GenerateCommandQueueFromMenu();
     }
 
     void RestartTimer()
     {
         maxInterval = FmodFacade.instance.GetBeatDuration() * maxBeat;
         curInterval = 0f;
+    }
+
+    void ProcessCommand()
+    {
+        for (int i = 0; i < commandQueue.Count; i++)
+        {
+            int beatOffset = i % 8;
+            int measureOffset = 1 + (i / 8);
+            int delay = maxBeat * measureOffset + beatOffset;
+
+            if (commandQueue[i] == "a")
+            {
+                beatNodes[beatOffset].DelayedActivateA(delay, 10);
+                //Debug.Log("Beat A " + beatOffset + ", delay of " + delay);
+            }
+            if (commandQueue[i] == "b")
+            {
+                beatNodes[beatOffset].DelayedActivateB(delay, 10);
+                //Debug.Log("Beat B " + beatOffset + ", delay of " + delay);
+            }
+        }
+    }
+
+    void GenerateCommandQueueFromMenu()
+    {
+        commandQueue = new List<string>(mainMenu);
+        ProcessCommand();
     }
 }
