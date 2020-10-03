@@ -8,32 +8,10 @@ public class BeatNode : ManageableObject
     private Color defaultColorNeutral;
     private Color fadedColorNeutral;
 
-    public Image activeA, activeB;
-    private Color defaultColorA, defaultColorB;
-    private Color fadedColorA, fadedColorB;
-
-    [HideInInspector]
-    public bool isAWaitingToAct;
-    [HideInInspector]
-    public bool isBWaitingToAct;
-
-    [HideInInspector]
-    public bool isAActive;
-    [HideInInspector]
-    public bool isBActive;
-
-    [HideInInspector]
-    public bool isAVisible;
-    [HideInInspector]
-    public bool isBVisible;
-
-    [HideInInspector]
-    public int damage;
+    public int activeBeat;
 
     private float activeTimerMax = 0.15f;
     private float activeTimer = 0f;
-
-    private int beatDelay;
 
     // Start is called before the first frame update
     public override void OnStart()
@@ -45,19 +23,6 @@ public class BeatNode : ManageableObject
             fadedColorNeutral.a = 0.2f;
             neutral.color = fadedColorNeutral;
         }
-
-        defaultColorA = activeA.color;
-        fadedColorA = defaultColorA;
-        fadedColorA.a = 0.3f;
-        activeA.color = fadedColorA;
-
-        defaultColorB = activeB.color;
-        fadedColorB = defaultColorB;
-        fadedColorB.a = 0.3f;
-        activeB.color = fadedColorB;
-
-        activeA.enabled = false;
-        activeB.enabled = false;
     }
 
     // Update is called once per frame
@@ -73,78 +38,15 @@ public class BeatNode : ManageableObject
         }
     }
 
-    public void OnBeat()
+    public void OnBeat(int beat)
     {
-        if (isAWaitingToAct || isBWaitingToAct)
+        if (beat == activeBeat)
         {
-            if (beatDelay == 2)
-            {
-                ToggleAIsVisible(true);
-                ToggleBIsVisible(true);
-            }
-
-            if (beatDelay == 0)
-            {
-                Debug.Log("BEAT");
-                ToggleFaded(false);
-                if (isAWaitingToAct)
-                {
-                    isAActive = true;
-                }
-                if (isBWaitingToAct)
-                {
-                    isBActive = true;
-                }
-            }
-            else if (beatDelay < 0)
-            {
-                ToggleAIsVisible(false);
-                ToggleBIsVisible(false);
-                ToggleFaded(true);
-                if (isAWaitingToAct)
-                {
-                    isAActive = false;
-                    isAWaitingToAct = false;
-                }
-                if (isBWaitingToAct)
-                {
-                    isBActive = false;
-                    isBWaitingToAct = false;
-                }
-            }
-            beatDelay--;
+            ToggleFaded(false);
         }
-    }
-
-    public void DelayedActivateA(int delay, int damage)
-    {
-        beatDelay = delay;
-        isAWaitingToAct = true;
-        this.damage = damage;
-    }
-
-    public void DelayedActivateB(int delay, int damage)
-    {
-        beatDelay = delay;
-        isBWaitingToAct = true;
-        this.damage = damage;
-    }
-
-    public void ToggleAIsVisible(bool visible)
-    {
-        if (isAWaitingToAct)
+        else
         {
-            isAVisible = visible;
-            activeA.enabled = visible;
-        }
-    }
-
-    public void ToggleBIsVisible(bool visible)
-    {
-        if (isBWaitingToAct)
-        {
-            isBVisible = visible;
-            activeB.enabled = visible;
+            ToggleFaded(true);
         }
     }
 
@@ -152,22 +54,11 @@ public class BeatNode : ManageableObject
     {
         if (faded)
         {
-            if (neutral != null)
-            {
-                neutral.color = fadedColorNeutral;
-            }
-            activeA.color = fadedColorA;
-            activeB.color = fadedColorB;
+            neutral.color = fadedColorNeutral;
         }
         else
         {
-            if (neutral != null)
-            {
-                neutral.color = defaultColorNeutral;
-            }
-            activeA.color = defaultColorA;
-            activeB.color = defaultColorB;
-            activeTimer = activeTimerMax;
+            neutral.color = defaultColorNeutral;
         }
     }
 }

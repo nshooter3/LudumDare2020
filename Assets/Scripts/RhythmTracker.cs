@@ -14,14 +14,18 @@ public class RhythmTracker : ManageableObject
     Vector3 needleEulerAngles;
 
     public List<BeatNode> beatNodes;
-    public List<BeatNode> beatNodes2;
+
+    public BeatCommandPool beatCommandPool;
 
     [HideInInspector]
     public int beat = 0;
     private int maxBeat = 8;
 
-    private List<string> commandQueue = null;
-    private List<string> mainMenu = new List<string> { "a", "", "a", "", "b", "", "b", "" };
+    public enum BeatCommandId { A = 0, B = 1, None = -1 };
+
+    private List<BeatCommandId> commandQueue = null;
+    private List<BeatCommandId> mainMenu = new List<BeatCommandId> { BeatCommandId.A, BeatCommandId.None, BeatCommandId.B, BeatCommandId.None,
+                                                                     BeatCommandId.A, BeatCommandId.None, BeatCommandId.B, BeatCommandId.None };
 
     string command;
 
@@ -59,8 +63,8 @@ public class RhythmTracker : ManageableObject
         beat++;
         if (commandQueue != null)
         {
-            beatNodes.ForEach(a => a.OnBeat());
-            beatNodes2.ForEach(a => a.OnBeat());
+            beatNodes.ForEach(a => a.OnBeat(beat));
+            beatCommandPool.OnBeat(beat);
         }
     }
 
@@ -85,38 +89,13 @@ public class RhythmTracker : ManageableObject
             int measureOffset = 1 + (i / 8);
             int delay = maxBeat * measureOffset + beatOffset;
 
-            if (commandQueue[i] == "a")
-            {
-                if (!beatNodes[beatOffset].isAWaitingToAct)
-                {
-                    beatNodes[beatOffset].DelayedActivateA(delay, 10);
-                    Debug.Log("Beat A " + beatOffset + ", delay of " + delay);
-                }
-                else
-                {
-                    beatNodes2[beatOffset].DelayedActivateA(delay, 10);
-                    Debug.Log("Beat 2 A " + beatOffset + ", delay of " + delay);
-                }
-            }
-            if (commandQueue[i] == "b")
-            {
-                if (!beatNodes[beatOffset].isBWaitingToAct)
-                {
-                    beatNodes[beatOffset].DelayedActivateB(delay, 10);
-                    Debug.Log("Beat B " + beatOffset + ", delay of " + delay);
-                }
-                else
-                {
-                    beatNodes2[beatOffset].DelayedActivateB(delay, 10);
-                    Debug.Log("Beat 2 B " + beatOffset + ", delay of " + delay);
-                }
-            }
+            beatCommandPool.StartBeatCommand(delay, 10, commandQueue[i], beatNodes[beatOffset].transform.position);
         }
     }
 
     void GenerateCommandQueueFromMenu()
     {
-        commandQueue = new List<string>(mainMenu);
+        commandQueue = new List<BeatCommandId>(mainMenu);
         ProcessCommand();
     }
 }

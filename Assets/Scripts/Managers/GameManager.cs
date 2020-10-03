@@ -23,6 +23,9 @@
             objectManager.AddManageableObject(FmodHandler.GetComponent<FmodChordInterpreter>());
             objectManager.FindManageableObjectsInScene<FmodEventHandler>();
 
+            objectManager.FindManageableObjectsInScene<BeatCommand>();
+            objectManager.FindManageableObjectsInScene<BeatCommandPool>();
+
             objectManager.FindManageableObjectsInScene<RhythmTracker>();
             objectManager.FindManageableObjectsInScene<BeatNode>();
         }
