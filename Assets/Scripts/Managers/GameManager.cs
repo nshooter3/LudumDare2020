@@ -24,6 +24,7 @@
             objectManager.FindManageableObjectsInScene<FmodEventHandler>();
 
             objectManager.FindManageableObjectsInScene<RhythmTracker>();
+            objectManager.FindManageableObjectsInScene<BeatNode>();
         }
 
         void Awake()

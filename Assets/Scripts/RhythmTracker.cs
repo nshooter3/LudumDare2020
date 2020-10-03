@@ -1,5 +1,6 @@
 ﻿using GameManager;
 using HarmonyQuest.Audio;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RhythmTracker : ManageableObject
@@ -12,6 +13,12 @@ public class RhythmTracker : ManageableObject
     public Transform needle;
     Vector3 needleEulerAngles;
 
+    public List<BeatNode> beatNodes;
+
+    [HideInInspector]
+    public int beat = 0;
+    private int maxBeat = 8;
+
     // Start is called before the first frame update
     public override void OnStart()
     {
@@ -23,28 +30,42 @@ public class RhythmTracker : ManageableObject
     // Update is called once per frame
     public override void OnUpdate()
     {
-        if (maxInterval > 100f)
+        if (maxInterval > 1000f)
         {
             RestartTimer();
         }
         else
         {
-            curInterval = Mathf.Max(0, curInterval - Time.deltaTime);
+            curInterval = Mathf.Min(maxInterval, curInterval + Time.deltaTime);
 
-            needleEulerAngles.z = (curInterval / maxInterval) * maxRotation;
-            Debug.Log("needleEulerAngles " + needleEulerAngles);
+            Debug.Log("CUR INTERVAL: " + curInterval);
+            Debug.Log("MAX INTERVAL: " + maxInterval);
+
+            needleEulerAngles.z = maxRotation - (curInterval / maxInterval) * maxRotation;
             needle.eulerAngles = needleEulerAngles;
         }
     }
 
     public void OnBeat()
     {
+        if (beat >= 8)
+        {
+            OnMeasure();
+        }
+        beat++;
+        beatNodes.ForEach(a => a.OnBeat(beat));
+        Debug.Log("BEAT: " + beat);
+    }
+
+    public void OnMeasure()
+    {
+        beat = 0;
         RestartTimer();
     }
 
     void RestartTimer()
     {
-        maxInterval = FmodFacade.instance.GetBeatDuration();
-        curInterval = maxInterval;
+        maxInterval = FmodFacade.instance.GetBeatDuration() * maxBeat;
+        curInterval = 0f;
     }
 }
