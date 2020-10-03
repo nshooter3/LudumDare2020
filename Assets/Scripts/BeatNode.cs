@@ -77,7 +77,7 @@ public class BeatNode : ManageableObject
     {
         if (isAWaitingToAct || isBWaitingToAct)
         {
-            if (beatDelay <= 2)
+            if (beatDelay == 2)
             {
                 ToggleAIsVisible(true);
                 ToggleBIsVisible(true);
