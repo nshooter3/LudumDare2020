@@ -2,13 +2,13 @@
 using GameManager;
 using UnityEngine.UI;
 
-public class BeatCommand : ManageableObject
+public class BeatCommand : MonoBehaviour
 {
     public int id = -1;
 
     public Image[] activeImages;
-    private Color defaultColor;
-    private Color fadedColor;
+    public Color[] defaultColors;
+    public Color[] fadedColors;
 
     [HideInInspector]
     public bool isActive;
@@ -27,18 +27,25 @@ public class BeatCommand : ManageableObject
     private float activeTimer = 0f;
 
     // Start is called before the first frame update
-    public override void OnStart()
+    public void OnStart()
     {
-        defaultColor = activeImages[id].color;
-        fadedColor = defaultColor;
-        fadedColor.a = 0.3f;
-        activeImages[id].color = fadedColor;
+        Debug.Log("BEAT COMMAND START");
+        defaultColors = new Color[activeImages.Length];
+        fadedColors = new Color[activeImages.Length];
+        for (int i = 0; i < activeImages.Length; i++)
+        {
+            defaultColors[i] = activeImages[i].color;
+            fadedColors[i] = defaultColors[i];
+            fadedColors[i].a = 0.3f;
 
-        activeImages[id].enabled = false;
+            activeImages[i].color = fadedColors[i];
+
+            activeImages[i].enabled = false;
+        }
     }
 
     // Update is called once per frame
-    public override void OnUpdate()
+    public void OnUpdate()
     {
         if (activeTimer > 0)
         {
@@ -94,21 +101,21 @@ public class BeatCommand : ManageableObject
     {
         if (faded)
         {
-            activeImages[id].color = fadedColor;
+            activeImages[id].color = fadedColors[id];
         }
         else
         {
-            activeImages[id].color = defaultColor;
+            activeImages[id].color = defaultColors[id];
             activeTimer = activeTimerMax;
         }
     }
 
     public void Reset()
     {
-        foreach (Image activeImage in activeImages)
+        for (int i = 0; i < activeImages.Length; i++)
         {
-            activeImage.color = fadedColor;
-            activeImage.enabled = false;
+            activeImages[i].color = fadedColors[i];
+            activeImages[i].enabled = false;
         }
         id = -1;
         activeTimer = 0f;

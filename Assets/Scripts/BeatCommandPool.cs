@@ -20,7 +20,13 @@ public class BeatCommandPool : ManageableObject
             tempBeatCommand = Instantiate(beatCommandPrefab);
             tempBeatCommand.transform.parent = transform;
             beatCommands.Add(tempBeatCommand.GetComponent< BeatCommand>());
+            beatCommands[i].OnStart();
         }
+    }
+
+    public override void OnUpdate()
+    {
+        beatCommands.ForEach(a => a.OnUpdate());
     }
 
     public void StartBeatCommand(int delay, int damage, RhythmTracker.BeatCommandId id, Vector3 position)
