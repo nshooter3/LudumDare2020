@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using GameManager;
 using UnityEngine.UI;
 
 public class BeatCommand : MonoBehaviour
@@ -29,7 +28,6 @@ public class BeatCommand : MonoBehaviour
     // Start is called before the first frame update
     public void OnStart()
     {
-        Debug.Log("BEAT COMMAND START");
         defaultColors = new Color[activeImages.Length];
         fadedColors = new Color[activeImages.Length];
         for (int i = 0; i < activeImages.Length; i++)
