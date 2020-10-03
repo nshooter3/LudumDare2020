@@ -30,7 +30,7 @@ public class BeatNode : ManageableObject
     [HideInInspector]
     public int damage;
 
-    private float activeTimerMax = 0.2f;
+    private float activeTimerMax = 0.15f;
     private float activeTimer = 0f;
 
     private int beatDelay;
@@ -38,10 +38,13 @@ public class BeatNode : ManageableObject
     // Start is called before the first frame update
     public override void OnStart()
     {
-        defaultColorNeutral = neutral.color;
-        fadedColorNeutral = defaultColorNeutral;
-        fadedColorNeutral.a = 0.2f;
-        neutral.color = fadedColorNeutral;
+        if (neutral != null)
+        {
+            defaultColorNeutral = neutral.color;
+            fadedColorNeutral = defaultColorNeutral;
+            fadedColorNeutral.a = 0.2f;
+            neutral.color = fadedColorNeutral;
+        }
 
         defaultColorA = activeA.color;
         fadedColorA = defaultColorA;
@@ -76,7 +79,6 @@ public class BeatNode : ManageableObject
         {
             if (beatDelay <= 2)
             {
-                Debug.Log("BEAT SHOW");
                 ToggleAIsVisible(true);
                 ToggleBIsVisible(true);
             }
@@ -102,10 +104,12 @@ public class BeatNode : ManageableObject
                 if (isAWaitingToAct)
                 {
                     isAActive = false;
+                    isAWaitingToAct = false;
                 }
                 if (isBWaitingToAct)
                 {
                     isBActive = false;
+                    isBWaitingToAct = false;
                 }
             }
             beatDelay--;
@@ -148,13 +152,19 @@ public class BeatNode : ManageableObject
     {
         if (faded)
         {
-            neutral.color = fadedColorNeutral;
+            if (neutral != null)
+            {
+                neutral.color = fadedColorNeutral;
+            }
             activeA.color = fadedColorA;
             activeB.color = fadedColorB;
         }
         else
         {
-            neutral.color = defaultColorNeutral;
+            if (neutral != null)
+            {
+                neutral.color = defaultColorNeutral;
+            }
             activeA.color = defaultColorA;
             activeB.color = defaultColorB;
             activeTimer = activeTimerMax;

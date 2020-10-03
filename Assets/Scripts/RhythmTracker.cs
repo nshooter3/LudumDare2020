@@ -14,6 +14,7 @@ public class RhythmTracker : ManageableObject
     Vector3 needleEulerAngles;
 
     public List<BeatNode> beatNodes;
+    public List<BeatNode> beatNodes2;
 
     [HideInInspector]
     public int beat = 0;
@@ -59,6 +60,7 @@ public class RhythmTracker : ManageableObject
         if (commandQueue != null)
         {
             beatNodes.ForEach(a => a.OnBeat());
+            beatNodes2.ForEach(a => a.OnBeat());
         }
     }
 
@@ -85,13 +87,29 @@ public class RhythmTracker : ManageableObject
 
             if (commandQueue[i] == "a")
             {
-                beatNodes[beatOffset].DelayedActivateA(delay, 10);
-                //Debug.Log("Beat A " + beatOffset + ", delay of " + delay);
+                if (!beatNodes[beatOffset].isAWaitingToAct)
+                {
+                    beatNodes[beatOffset].DelayedActivateA(delay, 10);
+                    Debug.Log("Beat A " + beatOffset + ", delay of " + delay);
+                }
+                else
+                {
+                    beatNodes2[beatOffset].DelayedActivateA(delay, 10);
+                    Debug.Log("Beat 2 A " + beatOffset + ", delay of " + delay);
+                }
             }
             if (commandQueue[i] == "b")
             {
-                beatNodes[beatOffset].DelayedActivateB(delay, 10);
-                //Debug.Log("Beat B " + beatOffset + ", delay of " + delay);
+                if (!beatNodes[beatOffset].isBWaitingToAct)
+                {
+                    beatNodes[beatOffset].DelayedActivateB(delay, 10);
+                    Debug.Log("Beat B " + beatOffset + ", delay of " + delay);
+                }
+                else
+                {
+                    beatNodes2[beatOffset].DelayedActivateB(delay, 10);
+                    Debug.Log("Beat 2 B " + beatOffset + ", delay of " + delay);
+                }
             }
         }
     }
