@@ -1,0 +1,4 @@
+{e9df6d91-b4cf-4ecf-8f21-07c0fdfc9211} event:/BattleTheme
+{0cdbcedb-9e11-4324-92cc-93eac7d2ffd6} bus:/
+{6f05fa67-7ce8-4976-8c05-959ca20c5fe7} bus:/Reverb
+{533f9e44-975a-4906-9302-1e390270ac0c} bank:/Master Bank
