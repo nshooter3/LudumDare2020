@@ -27,6 +27,8 @@ public class BeatNode : ManageableObject
     [HideInInspector]
     public int damage;
 
+    private float activeTimer = 0.1f;
+
     // Start is called before the first frame update
     public override void OnStart()
     {

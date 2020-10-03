@@ -68,6 +68,7 @@ MonoBehaviour:
   memoryDebug: 0
   isMusicPlaying: 0
   isAmbiencePlaying: 0
+  startDelay: 0.1
 --- !u!114 &7843936690587412324
 MonoBehaviour:
   m_ObjectHideFlags: 0

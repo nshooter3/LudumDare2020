@@ -5,6 +5,7 @@
     using System.Runtime.InteropServices;
     using UnityEngine;
     using GameManager;
+    using System.Collections;
 
     public class FmodMusicHandler : ManageableObject
     {
@@ -38,6 +39,8 @@
 
         [HideInInspector]
         public bool isAmbiencePlaying = false;
+
+        public float startDelay;
 
         /// <summary>
         /// Delegate that gets called when we get a beat callback from fmod. Load any functions that need to get called on beat here.
@@ -95,9 +98,15 @@
 
             if (startMusicOnAwake)
             {
-                StartMusic(musicEventName, musicVolume);
-                StartAmbience(ambienceEventName, ambienceVolume);
+                StartCoroutine(DelayedMusicStart());
             }
+        }
+
+        IEnumerator DelayedMusicStart()
+        {
+            yield return new WaitForSeconds(startDelay);
+            StartMusic(musicEventName, musicVolume);
+            StartAmbience(ambienceEventName, ambienceVolume);
         }
 
         public void StartMusic(string name, float volume)

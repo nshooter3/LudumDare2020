@@ -30,6 +30,7 @@ public class RhythmTracker : ManageableObject
     // Update is called once per frame
     public override void OnUpdate()
     {
+        //If fmod is being a dingus and hasn't loaded yet, stall until it's ready.
         if (maxInterval > 1000f)
         {
             RestartTimer();
@@ -37,9 +38,6 @@ public class RhythmTracker : ManageableObject
         else
         {
             curInterval = Mathf.Min(maxInterval, curInterval + Time.deltaTime);
-
-            Debug.Log("CUR INTERVAL: " + curInterval);
-            Debug.Log("MAX INTERVAL: " + maxInterval);
 
             needleEulerAngles.z = maxRotation - (curInterval / maxInterval) * maxRotation;
             needle.eulerAngles = needleEulerAngles;
