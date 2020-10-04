@@ -73,7 +73,7 @@ public class RhythmTracker : ManageableObject
         beat++;
         if (commandQueue != null)
         {
-            beatNodes.ForEach(a => a.OnBeat(beat));
+            //beatNodes.ForEach(a => a.OnBeat(beat));
             BeatCommandPool.instance.OnBeat(beat);
         }
     }

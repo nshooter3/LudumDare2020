@@ -70,7 +70,7 @@ public class BeatCommand : MonoBehaviour
             activeImages[i].enabled = false;
 
             defaultSizes[i] = activeImages[i].transform.localScale;
-            biggerSizes[i] = activeImages[i].transform.localScale * 2.5f;
+            biggerSizes[i] = activeImages[i].transform.localScale * 3.5f;
         }
     }
 

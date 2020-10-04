@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class ResultText : MonoBehaviour
 {
-    private float randomPositionRange = 30f;
+    private float randomPositionRange = 70f;
     private Vector3 startPos, endPos;
-    private float travelDistance = 50f, travelDistanceRange = 15;
+    private float travelDistance = 80f, travelDistanceRange = 20;
     private float travelTimeMax = 0.5f, travelTime, stallTimeMax = 0.25f, stallTime;
 
     public Text text;
