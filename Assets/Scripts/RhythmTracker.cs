@@ -24,8 +24,6 @@ public class RhythmTracker : ManageableObject
     public enum BeatCommandId { A = 0, B = 1, None = -1 };
 
     private List<BeatCommandId> commandQueue = null;
-    private List<BeatCommandId> mainMenu = new List<BeatCommandId> { BeatCommandId.A, BeatCommandId.None, BeatCommandId.B, BeatCommandId.None,
-                                                                     BeatCommandId.A, BeatCommandId.None, BeatCommandId.B, BeatCommandId.None };
 
     string command;
 
@@ -107,7 +105,7 @@ public class RhythmTracker : ManageableObject
 
     void GenerateCommandQueueFromMenu()
     {
-        commandQueue = new List<BeatCommandId>(mainMenu);
+        commandQueue = NotePatterns.GetRandomPattern();
         ProcessCommand();
     }
 }

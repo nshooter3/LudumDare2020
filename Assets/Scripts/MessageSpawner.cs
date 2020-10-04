@@ -20,16 +20,16 @@ public class MessageSpawner : MonoBehaviour
 
     public void SpawnPerfectResult()
     {
-        Instantiate(perfectResult);
+        Instantiate(perfectResult, transform.position, Quaternion.identity);
     }
 
     public void SpawnGoodResult()
     {
-        Instantiate(goodResult);
+        Instantiate(goodResult, transform.position, Quaternion.identity);
     }
 
     public void SpawnMissResult()
     {
-        Instantiate(missResult);
+        Instantiate(missResult, transform.position, Quaternion.identity);
     }
 }

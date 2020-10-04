@@ -90,7 +90,7 @@ public class BeatCommand : MonoBehaviour
         if (startInputTimer > 0)
         {
             startInputTimer -= Time.deltaTime;
-            if (startInputTimer <= startInputTimerMax / 2.4f)
+            if (startInputTimer <= startInputTimerMax / 1.6f)
             {
                 perfect = true;
                 //perfectImage.enabled = true;
@@ -103,7 +103,7 @@ public class BeatCommand : MonoBehaviour
         if (stopInputTimer > 0)
         {
             stopInputTimer -= Time.deltaTime;
-            if (stopInputTimer >= stopInputTimerMax / 1.6f)
+            if (stopInputTimer >= stopInputTimerMax / 2.4f)
             {
                 perfect = true;
                 //perfectImage.enabled = true;
