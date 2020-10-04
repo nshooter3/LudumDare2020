@@ -7,7 +7,7 @@ public class Miss : MonoBehaviour
     private Color startColor, fadedColor;
     private float fadeTimer, fadeTimerMax = 0.5f;
 
-    private Vector3 StartPos, EndPos;
+    private Vector3 startPos, endPos;
 
     [HideInInspector]
     public bool isActive;
@@ -28,7 +28,7 @@ public class Miss : MonoBehaviour
         {
             fadeTimer = Mathf.Max(0f, fadeTimer -= Time.deltaTime);
             image.color = Color.Lerp(fadedColor, startColor, fadeTimer/fadeTimerMax);
-            image.transform.position = Vector3.Lerp(EndPos, StartPos, fadeTimer / fadeTimerMax);
+            image.transform.position = Vector3.Lerp(endPos, startPos, fadeTimer / fadeTimerMax);
             if (fadeTimer <= 0)
             {
                 Reset();
@@ -42,9 +42,9 @@ public class Miss : MonoBehaviour
         image.color = fadedColor;
         transform.position = position;
         transform.localScale = scale;
-        StartPos = position;
-        EndPos = position;
-        EndPos.y += 30f;
+        startPos = position;
+        endPos = position;
+        endPos.y += 30f;
         isActive = true;
     }
 

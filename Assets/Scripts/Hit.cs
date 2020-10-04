@@ -5,10 +5,12 @@ public class Hit : MonoBehaviour
 {
     public Image image;
     private Color startColor, fadedColor;
-    private float fadeTimer, fadeTimerMax = 0.1f;
+    private float fadeTimer, fadeTimerMax = 0.15f;
 
     [HideInInspector]
     public bool isActive;
+
+    private Vector3 startScale, endScale;
 
     // Start is called before the first frame update
     public void OnStart()
@@ -17,6 +19,8 @@ public class Hit : MonoBehaviour
         fadedColor = startColor;
         fadedColor.a = 0f;
         image.color = fadedColor;
+        startScale = image.transform.localScale;
+        endScale = startScale * 1.5f;
     }
 
     // Update is called once per frame
@@ -26,6 +30,7 @@ public class Hit : MonoBehaviour
         {
             fadeTimer = Mathf.Max(0f, fadeTimer -= Time.deltaTime);
             image.color = Color.Lerp(fadedColor, startColor, fadeTimer / fadeTimerMax);
+            image.transform.localScale = Vector3.Lerp(endScale, startScale, fadeTimer / fadeTimerMax);
             if (fadeTimer <= 0)
             {
                 Reset();
@@ -45,6 +50,7 @@ public class Hit : MonoBehaviour
     {
         fadeTimer = 0;
         image.color = fadedColor;
+        image.transform.localScale = startScale;
         isActive = false;
     }
 }
