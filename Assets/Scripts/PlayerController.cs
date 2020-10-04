@@ -22,22 +22,25 @@ public class PlayerController : ManageableObject
         {
             if (BeatCommandPool.instance.IsInputValid(RhythmTracker.BeatCommandId.A))
             {
+
+                //TODO: Damage enemy
                 Debug.Log("Green button hit!");
             }
             else
             {
-                Debug.Log("Miss!");
+                BeatCommandPool.instance.Miss();
             }
         }
         if (RewiredPlayerInputManager.instance.RedButtonDown())
         {
             if (BeatCommandPool.instance.IsInputValid(RhythmTracker.BeatCommandId.B))
             {
+                //TODO: Damage enemy
                 Debug.Log("Red button hit!");
             }
             else
             {
-                Debug.Log("Miss!");
+                BeatCommandPool.instance.Miss();
             }
         }
         if (RewiredPlayerInputManager.instance.BlockButtonDown())

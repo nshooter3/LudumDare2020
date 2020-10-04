@@ -81,4 +81,25 @@ public class BeatCommandPool : ManageableObject
         }
         return false;
     }
+
+    public void Miss()
+    {
+        BeatCommand closestNote = null;
+        foreach (BeatCommand beatCommand in beatCommands)
+        {
+            if (beatCommand.isVisible && beatCommand.beatDelay >= 0)
+            {
+                if (closestNote == null || beatCommand.beatDelay < closestNote.beatDelay)
+                {
+                    closestNote = beatCommand;
+                }
+            }
+        }
+
+        if (closestNote != null)
+        {
+            closestNote.Reset();
+            Debug.Log("Miss!");
+        }
+    }
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class RhythmTracker : ManageableObject
 {
+    public static RhythmTracker instance;
+
     float maxInterval;
     float curInterval;
 
@@ -26,6 +28,18 @@ public class RhythmTracker : ManageableObject
                                                                      BeatCommandId.A, BeatCommandId.None, BeatCommandId.B, BeatCommandId.None };
 
     string command;
+
+    public override void OnAwake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     // Start is called before the first frame update
     public override void OnStart()

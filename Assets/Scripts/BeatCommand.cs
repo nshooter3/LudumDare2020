@@ -21,7 +21,7 @@ public class BeatCommand : MonoBehaviour
     [HideInInspector]
     public int damage;
 
-    private int beatDelay;
+    public int beatDelay;
 
     private float activeTimerMax = 0.15f;
     private float activeTimer = 0f;
@@ -83,6 +83,7 @@ public class BeatCommand : MonoBehaviour
 
     public void OnBeat()
     {
+        //If fmod is being a dingus and hasn't loaded yet, stall until it's ready.
         if (startInputTimerMax > 1000f)
         {
             startInputTimerMax = FmodMusicHandler.instance.GetBeatDuration() / 2f;
