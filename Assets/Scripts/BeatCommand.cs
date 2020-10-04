@@ -7,6 +7,7 @@ public class BeatCommand : MonoBehaviour
     public int id = -1;
 
     public Image[] activeImages;
+    public Text perfectImage;
     private Color[] defaultColors;
     private Color[] fadedColors;
     private Color[] fadedInColors;
@@ -39,11 +40,15 @@ public class BeatCommand : MonoBehaviour
     private float fadeInTimerMax;
     private float fadeInTimer;
 
+    private float perfectRange;
+    private bool perfect;
+
     // Start is called before the first frame update
     public void OnStart()
     {
         startInputTimerMax = FmodMusicHandler.instance.GetBeatDuration() / 2f;
         stopInputTimerMax  = FmodMusicHandler.instance.GetBeatDuration() / 2f;
+        perfectRange       = FmodMusicHandler.instance.GetBeatDuration() / 4f;
         fadeInTimerMax     = FmodMusicHandler.instance.GetBeatDuration() * 5f;
 
         defaultColors = new Color[activeImages.Length];
@@ -72,8 +77,10 @@ public class BeatCommand : MonoBehaviour
     // Update is called once per frame
     public void OnUpdate()
     {
+        perfect = false;
         if (activeTimer > 0)
         {
+            //perfectImage.enabled = false;
             activeTimer -= Time.deltaTime;
             if (activeTimer <= 0)
             {
@@ -83,6 +90,11 @@ public class BeatCommand : MonoBehaviour
         if (startInputTimer > 0)
         {
             startInputTimer -= Time.deltaTime;
+            if (startInputTimer <= startInputTimerMax / 2.4f)
+            {
+                perfect = true;
+                //perfectImage.enabled = true;
+            }
             if (startInputTimer <= 0)
             {
                 isAcceptingInput = true;
@@ -91,8 +103,14 @@ public class BeatCommand : MonoBehaviour
         if (stopInputTimer > 0)
         {
             stopInputTimer -= Time.deltaTime;
+            if (stopInputTimer >= stopInputTimerMax / 1.6f)
+            {
+                perfect = true;
+                //perfectImage.enabled = true;
+            }
             if (stopInputTimer <= 0)
             {
+                MessageSpawner.instance.SpawnMissResult();
                 MissPool.instance.StartMiss(transform.position, Vector3.Scale(transform.parent.transform.localScale, GetScale()));
                 Reset();
             }
@@ -105,20 +123,20 @@ public class BeatCommand : MonoBehaviour
         }
     }
 
+    public bool IsPerfect()
+    {
+        return perfect;
+    }
+
     public void OnBeat()
     {
         //If fmod is being a dingus and hasn't loaded yet, stall until it's ready.
         if (startInputTimerMax > 1000f)
         {
             startInputTimerMax = FmodMusicHandler.instance.GetBeatDuration() / 2f;
-        }
-        if (stopInputTimerMax > 1000f)
-        {
-            stopInputTimerMax = FmodMusicHandler.instance.GetBeatDuration() / 2f;
-        }
-        if (fadeInTimerMax > 1000f)
-        {
-            fadeInTimerMax = FmodMusicHandler.instance.GetBeatDuration() * 4f;
+            stopInputTimerMax  = FmodMusicHandler.instance.GetBeatDuration() / 2f;
+            perfectRange       = FmodMusicHandler.instance.GetBeatDuration() / 4f;
+            fadeInTimerMax     = FmodMusicHandler.instance.GetBeatDuration() * 5f;
         }
 
         if (isActive)
@@ -194,6 +212,8 @@ public class BeatCommand : MonoBehaviour
         startInputTimer = 0f;
         stopInputTimer = 0f;
         fadeInTimer = 0f;
+        perfect = false;
+        //perfectImage.enabled = false;
     }
 
     public Vector3 GetScale()

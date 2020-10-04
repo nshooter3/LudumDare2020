@@ -76,6 +76,14 @@ public class BeatCommandPool : ManageableObject
             {
                 //TODO: Damage enemy
                 HitPool.instance.StartHit(beatCommand.transform.position);
+                if (beatCommand.IsPerfect())
+                {
+                    MessageSpawner.instance.SpawnPerfectResult();
+                }
+                else
+                {
+                    MessageSpawner.instance.SpawnGoodResult();
+                }
                 beatCommand.Reset();
                 return true;
             }
@@ -88,7 +96,7 @@ public class BeatCommandPool : ManageableObject
         BeatCommand closestNote = null;
         foreach (BeatCommand beatCommand in beatCommands)
         {
-            if (beatCommand.isVisible && beatCommand.beatDelay >= 0 && beatCommand.beatDelay < 2)
+            if (beatCommand.isVisible && beatCommand.beatDelay >= 0 && beatCommand.beatDelay < 1)
             {
                 if (closestNote == null || beatCommand.beatDelay < closestNote.beatDelay)
                 {
@@ -99,6 +107,7 @@ public class BeatCommandPool : ManageableObject
 
         if (closestNote != null)
         {
+            MessageSpawner.instance.SpawnMissResult();
             MissPool.instance.StartMiss(closestNote.transform.position, Vector3.Scale(closestNote.transform.parent.transform.localScale, closestNote.GetScale()));
             closestNote.Reset();
         }

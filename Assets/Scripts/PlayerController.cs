@@ -22,7 +22,6 @@ public class PlayerController : ManageableObject
         {
             if (BeatCommandPool.instance.IsInputValid(RhythmTracker.BeatCommandId.A))
             {
-
                 //TODO: Damage enemy
                 Debug.Log("Green button hit!");
             }
