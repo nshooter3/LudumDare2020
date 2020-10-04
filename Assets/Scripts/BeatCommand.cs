@@ -7,8 +7,15 @@ public class BeatCommand : MonoBehaviour
     public int id = -1;
 
     public Image[] activeImages;
-    public Color[] defaultColors;
-    public Color[] fadedColors;
+    private Color[] defaultColors;
+    private Color[] fadedColors;
+    private Color[] fadedInColors;
+
+    private Vector3[] defaultSizes;
+    private Vector3[] biggerSizes;
+
+
+
 
     [HideInInspector]
     public bool isActive;
@@ -32,23 +39,37 @@ public class BeatCommand : MonoBehaviour
     private float stopInputTimerMax;
     private float stopInputTimer;
 
+    private float fadeInTimerMax;
+    private float fadeInTimer;
+
     // Start is called before the first frame update
     public void OnStart()
     {
         startInputTimerMax = FmodMusicHandler.instance.GetBeatDuration() / 2f;
         stopInputTimerMax  = FmodMusicHandler.instance.GetBeatDuration() / 2f;
+        fadeInTimerMax     = FmodMusicHandler.instance.GetBeatDuration() * 5f;
 
         defaultColors = new Color[activeImages.Length];
         fadedColors = new Color[activeImages.Length];
+        fadedInColors = new Color[activeImages.Length];
+        defaultSizes = new Vector3[activeImages.Length];
+        biggerSizes = new Vector3[activeImages.Length];
+
         for (int i = 0; i < activeImages.Length; i++)
         {
             defaultColors[i] = activeImages[i].color;
             fadedColors[i] = defaultColors[i];
-            fadedColors[i].a = 0.3f;
+            fadedColors[i].a = 0.0f;
+
+            fadedInColors[i] = defaultColors[i];
+            fadedInColors[i].a = 0.75f;
 
             activeImages[i].color = fadedColors[i];
 
             activeImages[i].enabled = false;
+
+            defaultSizes[i] = activeImages[i].transform.localScale;
+            biggerSizes[i] = activeImages[i].transform.localScale * 2.5f;
         }
     }
 
@@ -79,6 +100,12 @@ public class BeatCommand : MonoBehaviour
                 isAcceptingInput = false;
             }
         }
+        if (fadeInTimer > 0)
+        {
+            fadeInTimer = Mathf.Max(0, fadeInTimer - Time.deltaTime);
+            activeImages[id].color = Color.Lerp(fadedInColors[id], fadedColors[id], fadeInTimer/fadeInTimerMax);
+            activeImages[id].transform.localScale = Vector3.Lerp(defaultSizes[id], biggerSizes[id], fadeInTimer / fadeInTimerMax);
+        }
     }
 
     public void OnBeat()
@@ -92,12 +119,17 @@ public class BeatCommand : MonoBehaviour
         {
             stopInputTimerMax = FmodMusicHandler.instance.GetBeatDuration() / 2f;
         }
+        if (fadeInTimerMax > 1000f)
+        {
+            fadeInTimerMax = FmodMusicHandler.instance.GetBeatDuration() * 4f;
+        }
 
         if (isActive)
         {
-            if (beatDelay == 2)
+            if (beatDelay == 6)
             {
                 ToggleIsVisible(true);
+                fadeInTimer = fadeInTimerMax;
             }
 
             if (beatDelay == 1)
@@ -107,6 +139,7 @@ public class BeatCommand : MonoBehaviour
 
             if (beatDelay == 0)
             {
+                fadeInTimer = 0;
                 ToggleFaded(false);
                 stopInputTimer = stopInputTimerMax;
             }
@@ -156,6 +189,7 @@ public class BeatCommand : MonoBehaviour
         {
             activeImages[i].color = fadedColors[i];
             activeImages[i].enabled = false;
+            activeImages[i].transform.localScale = defaultSizes[i];
         }
         id = -1;
         activeTimer = 0f;
