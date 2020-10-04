@@ -12,7 +12,7 @@ public class RhythmTracker : ManageableObject
 
     float maxRotation = 360f;
 
-    public Transform needle;
+    public Transform record;
     Vector3 needleEulerAngles;
 
     public List<BeatNode> beatNodes;
@@ -45,7 +45,7 @@ public class RhythmTracker : ManageableObject
     public override void OnStart()
     {
         FmodMusicHandler.instance.AssignFunctionToOnBeatDelegate(OnBeat);
-        needleEulerAngles = needle.transform.eulerAngles;
+        needleEulerAngles = record.transform.eulerAngles;
         OnMeasure();
     }
 
@@ -61,8 +61,8 @@ public class RhythmTracker : ManageableObject
         {
             curInterval = Mathf.Min(maxInterval, curInterval + Time.deltaTime);
 
-            needleEulerAngles.z = maxRotation - (curInterval / maxInterval) * maxRotation;
-            needle.eulerAngles = needleEulerAngles;
+            needleEulerAngles.z = (curInterval / maxInterval) * maxRotation;
+            record.eulerAngles = needleEulerAngles;
         }
     }
 
@@ -101,7 +101,7 @@ public class RhythmTracker : ManageableObject
             int measureOffset = 1 + (i / 8);
             int delay = maxBeat * measureOffset + beatOffset;
 
-            BeatCommandPool.instance.StartBeatCommand(delay, 10, commandQueue[i], beatNodes[beatOffset].transform.position);
+            BeatCommandPool.instance.StartBeatCommand(delay, 10, commandQueue[i], beatNodes[beatOffset].transform);
         }
     }
 

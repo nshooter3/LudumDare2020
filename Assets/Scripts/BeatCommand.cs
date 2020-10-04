@@ -118,13 +118,14 @@ public class BeatCommand : MonoBehaviour
         }
     }
 
-    public void Activate(int delay, int damage, int id, Vector3 position)
+    public void Activate(int delay, int damage, int id, Transform parent)
     {
         this.id = id;
         beatDelay = delay;
         isActive = true;
         this.damage = damage;
-        transform.position = position;
+        transform.parent = parent;
+        transform.localPosition = Vector3.zero;
     }
 
     public void ToggleIsVisible(bool visible)

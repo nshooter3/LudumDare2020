@@ -59,6 +59,7 @@ public class BeatNode : ManageableObject
         else
         {
             neutral.color = defaultColorNeutral;
+            activeTimer = activeTimerMax;
         }
     }
 }

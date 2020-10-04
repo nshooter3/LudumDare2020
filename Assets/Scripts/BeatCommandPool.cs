@@ -43,11 +43,11 @@ public class BeatCommandPool : ManageableObject
         beatCommands.ForEach(a => a.OnUpdate());
     }
 
-    public void StartBeatCommand(int delay, int damage, RhythmTracker.BeatCommandId id, Vector3 position)
+    public void StartBeatCommand(int delay, int damage, RhythmTracker.BeatCommandId id, Transform parent)
     {
         if (id != RhythmTracker.BeatCommandId.None)
         {
-            GetAvailableBeatCommand().Activate(delay, damage, (int)id, position);
+            GetAvailableBeatCommand().Activate(delay, damage, (int)id, parent);
         }
     }
 
