@@ -32,9 +32,10 @@
 
             objectManager.AddManageableObject(playerController.GetComponent<PlayerController>());
 
-            objectManager.FindManageableObjectsInScene<BeatCommandPool>();
-
+            objectManager.AddManageableObject(canvas.GetComponentInChildren<BeatCommandPool>());
             objectManager.AddManageableObject(canvas.GetComponentInChildren<RhythmTracker>());
+            objectManager.AddManageableObject(canvas.GetComponentInChildren<HitPool>());
+            objectManager.AddManageableObject(canvas.GetComponentInChildren<MissPool>());
             objectManager.FindManageableObjectsInScene<BeatNode>();
         }
 

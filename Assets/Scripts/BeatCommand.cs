@@ -14,9 +14,6 @@ public class BeatCommand : MonoBehaviour
     private Vector3[] defaultSizes;
     private Vector3[] biggerSizes;
 
-
-
-
     [HideInInspector]
     public bool isActive;
 
@@ -65,7 +62,6 @@ public class BeatCommand : MonoBehaviour
             fadedInColors[i].a = 0.75f;
 
             activeImages[i].color = fadedColors[i];
-
             activeImages[i].enabled = false;
 
             defaultSizes[i] = activeImages[i].transform.localScale;
@@ -97,7 +93,8 @@ public class BeatCommand : MonoBehaviour
             stopInputTimer -= Time.deltaTime;
             if (stopInputTimer <= 0)
             {
-                isAcceptingInput = false;
+                MissPool.instance.StartMiss(transform.position, Vector3.Scale(transform.parent.transform.localScale, GetScale()));
+                Reset();
             }
         }
         if (fadeInTimer > 0)
@@ -142,10 +139,6 @@ public class BeatCommand : MonoBehaviour
                 fadeInTimer = 0;
                 ToggleFaded(false);
                 stopInputTimer = stopInputTimerMax;
-            }
-            else if (beatDelay < 0)
-            {
-                Reset();
             }
             beatDelay--;
         }
@@ -198,7 +191,17 @@ public class BeatCommand : MonoBehaviour
         isAcceptingInput = false;
         damage = 0;
         beatDelay = 0;
-        startInputTimer = 0;
-        stopInputTimer = 0;
+        startInputTimer = 0f;
+        stopInputTimer = 0f;
+        fadeInTimer = 0f;
+    }
+
+    public Vector3 GetScale()
+    {
+        if (id >= 0)
+        {
+            return activeImages[id].transform.localScale;
+        }
+        return Vector3.one;
     }
 }
