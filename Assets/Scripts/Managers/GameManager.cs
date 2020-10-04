@@ -8,7 +8,6 @@
         //References to the prefabs we're gonna load into these objects later.
         public GameObject fmodHandler;
         public GameObject rewiredInputManager;
-        public GameObject canvas;
         public GameObject playerController;
 
         //The master list of all the objects that need to be updated, in order.
@@ -19,7 +18,6 @@
             //Initialize all our one-of manageable objects that need to be in every scene.
             fmodHandler = Instantiate(fmodHandler);
             rewiredInputManager = Instantiate(rewiredInputManager);
-            canvas = Instantiate(canvas);
             playerController = Instantiate(playerController);
 
             objectManager.AddManageableObject(fmodHandler.GetComponent<FmodFacade>());
@@ -32,10 +30,10 @@
 
             objectManager.AddManageableObject(playerController.GetComponent<PlayerController>());
 
-            objectManager.AddManageableObject(canvas.GetComponentInChildren<BeatCommandPool>());
-            objectManager.AddManageableObject(canvas.GetComponentInChildren<RhythmTracker>());
-            objectManager.AddManageableObject(canvas.GetComponentInChildren<HitPool>());
-            objectManager.AddManageableObject(canvas.GetComponentInChildren<MissPool>());
+            objectManager.FindManageableObjectsInScene<BeatCommandPool>();
+            objectManager.FindManageableObjectsInScene<RhythmTracker>();
+            objectManager.FindManageableObjectsInScene<HitPool>();
+            objectManager.FindManageableObjectsInScene<MissPool>();
             objectManager.FindManageableObjectsInScene<BeatNode>();
         }
 
