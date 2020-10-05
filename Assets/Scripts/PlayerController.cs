@@ -1,7 +1,4 @@
 ﻿using GameManager;
-using HarmonyQuest.Audio;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : ManageableObject
@@ -44,7 +41,18 @@ public class PlayerController : ManageableObject
         }
         if (RewiredPlayerInputManager.instance.BlockButtonDown())
         {
-            Debug.Log("Block button down!");
+            if (Enemy.instance.IsGuardValid())
+            {
+                PlayerStuff.instance.Guard();
+            }
+            else
+            {
+                PlayerStuff.instance.GuardMiss();
+            }
+        }
+        if (RewiredPlayerInputManager.instance.HealButtonDown())
+        {
+            Debug.Log("Heal button down!");
         }
     }
 }

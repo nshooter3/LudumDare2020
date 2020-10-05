@@ -76,6 +76,7 @@ public class RhythmTracker : ManageableObject
             //beatNodes.ForEach(a => a.OnBeat(beat));
             BeatCommandPool.instance.OnBeat(beat);
         }
+        Enemy.instance.OnBeat(beat);
     }
 
     public void OnMeasure()

@@ -70,6 +70,11 @@ public class RewiredPlayerInputManager : ManageableObject
         return player.GetButtonDown("B");
     }
 
+    public bool HealButtonDown()
+    {
+        return player.GetButtonDown("Heal");
+    }
+
     public bool BlockButtonDown()
     {
         return player.GetButtonDown("Block");

@@ -6,9 +6,13 @@ using UnityEngine.UI;
 public class PlayerStuff : MonoBehaviour
 {
     public HealthUI healthUI;
+    public Shield guardShield;
+    public Shield missShield;
     private int health, maxHealth = 100;
 
     public static PlayerStuff instance;
+
+    public bool guarded = false;
 
     private void Awake()
     {
@@ -34,6 +38,28 @@ public class PlayerStuff : MonoBehaviour
     {
         health = Mathf.Max(0, health - damage);
         healthUI.TakeDamage(health, maxHealth);
+    }
+
+    public void Guard()
+    {
+        if (!ShieldActive())
+        {
+            guardShield.Activate();
+            guarded = true;
+        }
+    }
+
+    public void GuardMiss()
+    {
+        if (!ShieldActive())
+        {
+            missShield.Activate();
+        }
+    }
+
+    public bool ShieldActive()
+    {
+        return missShield.active || guardShield.active;
     }
 
     void Die()
