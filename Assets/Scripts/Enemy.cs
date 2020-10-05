@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using HarmonyQuest.Audio;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +24,11 @@ public class Enemy : MonoBehaviour
 
     private int damage = 10;
 
+    public bool dead = false;
+
+    public EnemyDie enemyDie;
+    public EnemyTakeDamage enemyTakeDamage;
+
     private void Awake()
     {
         instance = this;
@@ -37,6 +43,8 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (dead) return;
+
         if (health <= 0)
         {
             Die();
@@ -57,6 +65,8 @@ public class Enemy : MonoBehaviour
 
     public void OnBeat(int beat)
     {
+        if (dead) return;
+
         CheckForAttack(beat);
 
         if (attackSequence >= 0)
@@ -125,6 +135,7 @@ public class Enemy : MonoBehaviour
     {
         health = Mathf.Max(0, health - damage);
         healthUI.TakeDamage(health, maxHealth);
+        enemyTakeDamage.Activate();
     }
 
     public void ResetFist()
@@ -134,6 +145,9 @@ public class Enemy : MonoBehaviour
 
     void Die()
     {
-
+        FmodFacade.instance.StopMusic();
+        enemyTakeDamage.Reset();
+        enemyDie.Activate();
+        dead = true;
     }
 }

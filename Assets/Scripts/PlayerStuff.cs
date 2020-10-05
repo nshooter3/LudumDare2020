@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerStuff : MonoBehaviour
@@ -17,6 +18,8 @@ public class PlayerStuff : MonoBehaviour
     public static PlayerStuff instance;
 
     public bool guarded = false;
+
+    public bool dead = false;
 
     private void Awake()
     {
@@ -69,6 +72,7 @@ public class PlayerStuff : MonoBehaviour
 
     void Die()
     {
-
+        FmodFacade.instance.StopMusic();
+        SceneManager.LoadScene("LoseScene");
     }
 }

@@ -11,7 +11,10 @@ public class PlayerController : ManageableObject
 
     public override void OnUpdate()
     {
-        CheckForInput();
+        if (!Enemy.instance.dead)
+        {
+            CheckForInput();
+        }
     }
 
     public void CheckForInput()

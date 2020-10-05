@@ -29,7 +29,7 @@ public class Caution : MonoBehaviour
 
     public void Activate()
     {
-        FmodFacade.instance.PlayPooledFmodEvent("Caution");
+        FmodFacade.instance.PlayPooledFmodEvent("Caution", 0.7f);
         image.enabled = true;
         waitTimer = waitTimerMax;
     }
