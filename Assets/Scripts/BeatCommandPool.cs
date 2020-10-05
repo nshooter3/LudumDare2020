@@ -31,8 +31,7 @@ public class BeatCommandPool : ManageableObject
         beatCommands = new List<BeatCommand>();
         for (int i = 0; i < size; i++)
         {
-            tempBeatCommand = Instantiate(beatCommandPrefab);
-            tempBeatCommand.transform.parent = transform;
+            tempBeatCommand = Instantiate(beatCommandPrefab, transform, false);
             beatCommands.Add(tempBeatCommand.GetComponent< BeatCommand>());
             beatCommands[i].OnStart();
         }

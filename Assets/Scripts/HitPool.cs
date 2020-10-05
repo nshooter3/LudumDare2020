@@ -31,8 +31,7 @@ public class HitPool : ManageableObject
         hits = new List<Hit>();
         for (int i = 0; i < size; i++)
         {
-            tempHit = Instantiate(hitPrefab);
-            tempHit.transform.parent = transform;
+            tempHit = Instantiate(hitPrefab, transform, false);
             hits.Add(tempHit);
             hits[i].OnStart();
         }

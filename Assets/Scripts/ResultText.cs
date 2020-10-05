@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class ResultText : MonoBehaviour
 {
-    private float randomPositionRange = 70f;
+    private float randomPositionRange = 50f;
     private Vector3 startPos, endPos;
-    private float travelDistance = 80f, travelDistanceRange = 20;
+    private float travelDistance = 50f, travelDistanceRange = 20;
     private float travelTimeMax = 0.5f, travelTime, stallTimeMax = 0.25f, stallTime;
 
     public Text text;
@@ -30,7 +30,7 @@ public class ResultText : MonoBehaviour
         startColor = text.color;
         fadedColor = text.color;
         fadedColor.a = 0f;
-        transform.parent = MessageSpawner.instance.transform;
+        transform.SetParent(MessageSpawner.instance.transform, false);
     }
 
     // Update is called once per frame

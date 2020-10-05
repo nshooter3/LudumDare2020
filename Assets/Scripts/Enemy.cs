@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class Enemy : MonoBehaviour
 {
     public HealthUI healthUI;
-    private int health, maxHealth = 2500;
+    private int health, maxHealth = 6000;
     public enum Phase { one, two, three, four };
     Phase phase = Phase.one;
     bool isAttacking = false;
@@ -17,7 +17,7 @@ public class Enemy : MonoBehaviour
 
     public static Enemy instance;
 
-    private int attackOdds1 = 6;
+    private int attackOdds1 = 5;
     private int attackOdds2 = 3;
     private int attackOdds;
 

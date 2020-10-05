@@ -8,10 +8,10 @@ public class PlayerStuff : MonoBehaviour
     public HealthUI healthUI;
     public Shield guardShield;
     public Shield missShield;
-    private int health, maxHealth = 100;
+    private int health, maxHealth = 120;
 
     public int baseDamage = 10;
-    public int firstHalfDamageBuff = 5;
+    public int firstHalfDamageBuff = 3;
 
     public static PlayerStuff instance;
 

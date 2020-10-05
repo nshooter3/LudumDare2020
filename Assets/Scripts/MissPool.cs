@@ -31,8 +31,7 @@ public class MissPool : ManageableObject
         misses = new List<Miss>();
         for (int i = 0; i < size; i++)
         {
-            tempMiss = Instantiate(missPrefab);
-            tempMiss.transform.parent = transform;
+            tempMiss = Instantiate(missPrefab, transform, false);
             misses.Add(tempMiss);
             misses[i].OnStart();
         }

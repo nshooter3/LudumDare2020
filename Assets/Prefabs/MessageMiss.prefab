@@ -80,7 +80,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 7e8eac416a210d84db430a4ca3641adb, type: 3}
-    m_FontSize: 28
+    m_FontSize: 24
     m_FontStyle: 2
     m_BestFit: 0
     m_MinSize: 1

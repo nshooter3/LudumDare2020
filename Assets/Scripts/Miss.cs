@@ -41,7 +41,6 @@ public class Miss : MonoBehaviour
         fadeTimer = fadeTimerMax;
         image.color = fadedColor;
         transform.position = position;
-        transform.localScale = scale;
         startPos = position;
         endPos = position;
         endPos.y += 30f;
