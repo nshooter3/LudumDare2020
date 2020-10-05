@@ -694,6 +694,7 @@ MonoBehaviour:
   baseDamage: 10
   firstHalfDamageBuff: 5
   guarded: 0
+  dead: 0
 --- !u!4 &438324470
 Transform:
   m_ObjectHideFlags: 0
@@ -1181,6 +1182,7 @@ GameObject:
   - component: {fileID: 755050619}
   - component: {fileID: 755050621}
   - component: {fileID: 755050620}
+  - component: {fileID: 755050622}
   m_Layer: 5
   m_Name: Enemy
   m_TagString: Untagged
@@ -1259,6 +1261,7 @@ MonoBehaviour:
   healthUI: {fileID: 1488204584}
   caution: {fileID: 1958277339}
   fist: {fileID: 1675562253}
+  dead: 0
   enemyDie: {fileID: 755050621}
   enemyTakeDamage: {fileID: 755050620}
 --- !u!114 &755050620
@@ -1287,6 +1290,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   image: {fileID: 755050617}
+--- !u!114 &755050622
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 755050615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ba0c27d7db408c4cba07b17c09aaac7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &799332016
 GameObject:
   m_ObjectHideFlags: 0
