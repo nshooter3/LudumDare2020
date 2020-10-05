@@ -67,11 +67,13 @@ public class Enemy : MonoBehaviour
             }
             else if (attackSequence == 1)
             {
-                fist.Activate();
+                if (PlayerStuff.instance.guarded == false)
+                {
+                    fist.Activate();
+                }
             }
             else if (attackSequence == 0)
             {
-                isAttacking = false;
                 if (!PlayerStuff.instance.guarded)
                 {
                     PlayerStuff.instance.TakeDamage(damage * 2);
@@ -84,6 +86,10 @@ public class Enemy : MonoBehaviour
             }
             attackSequence--;
         }
+        else
+        {
+            isAttacking = false;
+        }
     }
 
     public bool IsGuardValid()
@@ -93,7 +99,7 @@ public class Enemy : MonoBehaviour
 
     private void CheckForAttack(int beat)
     {
-        if (phase != Phase.one)
+        if (phase != Phase.one && !isAttacking && (beat == 5 || beat == 1))
         {
             attackOdds = attackOdds1;
             if (phase == Phase.four)
@@ -103,12 +109,9 @@ public class Enemy : MonoBehaviour
 
             if (Random.Range(0, attackOdds) == 0)
             {
-                if (!isAttacking && beat == 5 || beat == 1)
-                {
-                    isAttacking = true;
-                    attackSequence = maxAttackSequence;
-                    PlayerStuff.instance.guarded = false;
-                }
+                isAttacking = true;
+                attackSequence = maxAttackSequence;
+                PlayerStuff.instance.guarded = false;
             }
         }
     }
@@ -122,6 +125,11 @@ public class Enemy : MonoBehaviour
     {
         health = Mathf.Max(0, health - damage);
         healthUI.TakeDamage(health, maxHealth);
+    }
+
+    public void ResetFist()
+    {
+        fist.Reset();
     }
 
     void Die()

@@ -74,7 +74,7 @@ public class Fist : MonoBehaviour
         punchTimer = punchTimerMax;
     }
 
-    private void Reset()
+    public void Reset()
     {
         image.color = fadeColor;
         image.transform.position = startPos;

@@ -42,6 +42,7 @@ public class PlayerController : ManageableObject
             if (Enemy.instance.IsGuardValid())
             {
                 PlayerStuff.instance.Guard();
+                Enemy.instance.ResetFist();
             }
             else
             {
