@@ -329,6 +329,11 @@
             return fmodDictionary.fmodSFXEventDictionary.Keys.ToList();
         }
 
+        public void PlayMetronome()
+        {
+            FmodOnBeatAccuracyChecker.instance.PlayMetronome();
+        }
+
         /*public void GetDSPData()
         {
             FMOD.RESULT result;

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using HarmonyQuest.Audio;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -72,6 +73,7 @@ public class Fist : MonoBehaviour
         Reset();
         fadeInTimer = fadeInTimerMax;
         punchTimer = punchTimerMax;
+        FmodFacade.instance.PlayPooledFmodEvent("Fist");
     }
 
     public void Reset()

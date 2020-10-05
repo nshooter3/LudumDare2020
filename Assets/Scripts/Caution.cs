@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using HarmonyQuest.Audio;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -28,6 +29,7 @@ public class Caution : MonoBehaviour
 
     public void Activate()
     {
+        FmodFacade.instance.PlayPooledFmodEvent("Caution");
         image.enabled = true;
         waitTimer = waitTimerMax;
     }

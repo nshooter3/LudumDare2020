@@ -73,11 +73,16 @@
         {
             if (playMetronome)
             {
-                metronomeSound.Play();
+                PlayMetronome();
             }
             beatTimer = 0;
             beatDuration = FmodMusicHandler.instance.GetBeatDuration();
             hasReachedBeatHalfwayPoint = false;
+        }
+
+        public void PlayMetronome()
+        {
+            metronomeSound.Play();
         }
 
         //Allow a little bit of wiggle room both before and after the beat for determining whether or not an action was on beat.

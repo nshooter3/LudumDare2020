@@ -21,7 +21,7 @@ public class Enemy : MonoBehaviour
     private int attackOdds2 = 3;
     private int attackOdds;
 
-    private int damage = 5;
+    private int damage = 10;
 
     private void Awake()
     {
@@ -76,11 +76,11 @@ public class Enemy : MonoBehaviour
             {
                 if (!PlayerStuff.instance.guarded)
                 {
-                    PlayerStuff.instance.TakeDamage(damage * 2);
+                    PlayerStuff.instance.TakeDamage(damage);
                 }
                 else
                 {
-                    PlayerStuff.instance.TakeDamage(damage);
+                    //PlayerStuff.instance.TakeDamage(damage);
                 }
                 PlayerStuff.instance.guarded = false;
             }

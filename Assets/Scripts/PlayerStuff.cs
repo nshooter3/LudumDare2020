@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using HarmonyQuest.Audio;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,7 +9,7 @@ public class PlayerStuff : MonoBehaviour
     public HealthUI healthUI;
     public Shield guardShield;
     public Shield missShield;
-    private int health, maxHealth = 120;
+    private int health, maxHealth = 100;
 
     public int baseDamage = 10;
     public int firstHalfDamageBuff = 3;
@@ -39,6 +40,7 @@ public class PlayerStuff : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        FmodFacade.instance.PlayPooledFmodEvent("PlayerHurt");
         health = Mathf.Max(0, health - damage);
         healthUI.TakeDamage(health, maxHealth);
     }

@@ -66,6 +66,11 @@ public class RhythmTracker : ManageableObject
 
     public void OnBeat()
     {
+        if (beat % 2 == 0)
+        {
+            //FmodFacade.instance.PlayPooledFmodEvent("HitA");
+            //FmodFacade.instance.PlayMetronome();
+        }
         if (beat >= 8)
         {
             OnMeasure();
