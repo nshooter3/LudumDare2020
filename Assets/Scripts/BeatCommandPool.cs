@@ -74,17 +74,25 @@ public class BeatCommandPool : ManageableObject
         {
             if (beatCommand.isAcceptingInput && (RhythmTracker.BeatCommandId) beatCommand.id == id)
             {
+                int damage;
                 HitPool.instance.StartHit(beatCommand.transform.position);
                 if (beatCommand.IsPerfect())
                 {
                     MessageSpawner.instance.SpawnPerfectResult();
+                    damage = beatCommand.damage * 2;
                     Enemy.instance.TakeDamage(beatCommand.damage * 2);
                 }
                 else
                 {
                     MessageSpawner.instance.SpawnGoodResult();
-                    Enemy.instance.TakeDamage(beatCommand.damage);
+                    damage = beatCommand.damage;
                 }
+                //Do a little extra damage in the first half of the fight to compensate for less notes.
+                if (!Enemy.instance.IsHalfwayDone())
+                {
+                    damage += PlayerStuff.instance.firstHalfDamageBuff;
+                }
+                Enemy.instance.TakeDamage(damage);
                 beatCommand.Reset();
                 return true;
             }

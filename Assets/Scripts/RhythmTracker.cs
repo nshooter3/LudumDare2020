@@ -100,13 +100,20 @@ public class RhythmTracker : ManageableObject
             int measureOffset = 1 + (i / 8);
             int delay = maxBeat * measureOffset + beatOffset;
 
-            BeatCommandPool.instance.StartBeatCommand(delay, 10, commandQueue[i], beatNodes[beatOffset].transform);
+            BeatCommandPool.instance.StartBeatCommand(delay, PlayerStuff.instance.baseDamage, commandQueue[i], beatNodes[beatOffset].transform);
         }
     }
 
     void GenerateCommandQueueFromMenu()
     {
-        commandQueue = NotePatterns.GetRandomPattern();
+        if (Enemy.instance.IsHalfwayDone())
+        {
+            commandQueue = NotePatterns.GetRandomPattern();
+        }
+        else
+        {
+            commandQueue = NotePatterns.GetRandomBasicPattern();
+        }
         ProcessCommand();
     }
 }

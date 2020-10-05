@@ -113,6 +113,11 @@ public class Enemy : MonoBehaviour
         }
     }
 
+    public bool IsHalfwayDone()
+    {
+        return phase == Phase.three || phase == Phase.four;
+    }
+
     public void TakeDamage(int damage)
     {
         health = Mathf.Max(0, health - damage);

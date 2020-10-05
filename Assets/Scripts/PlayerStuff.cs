@@ -10,6 +10,9 @@ public class PlayerStuff : MonoBehaviour
     public Shield missShield;
     private int health, maxHealth = 100;
 
+    public int baseDamage = 10;
+    public int firstHalfDamageBuff = 5;
+
     public static PlayerStuff instance;
 
     public bool guarded = false;
