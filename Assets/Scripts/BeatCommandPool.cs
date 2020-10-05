@@ -1,4 +1,5 @@
 ﻿using GameManager;
+using HarmonyQuest.Audio;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -115,6 +116,7 @@ public class BeatCommandPool : ManageableObject
 
         if (closestNote != null)
         {
+            FmodFacade.instance.PlayPooledFmodEvent("Miss");
             MessageSpawner.instance.SpawnMissResult();
             MissPool.instance.StartMiss(closestNote.transform.position, Vector3.Scale(closestNote.transform.parent.transform.localScale, closestNote.GetScale()));
             closestNote.Reset();

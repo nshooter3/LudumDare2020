@@ -18,7 +18,15 @@
         public Dictionary<string, string> fmodSFXEventDictionary = new Dictionary<string, string>()
         {
             //{ "", "" },
-
+            { "BossDeath", "event:/BossDeath" },
+            { "Caution", "event:/Caution" },
+            { "Fist", "event:/Fist" },
+            { "Guard", "event:/Guard" },
+            { "HitA", "event:/HitA" },
+            { "HitB", "event:/HitB" },
+            { "Miss", "event:/Miss" },
+            { "PlayerDeath", "event:/PlayeDeath" },
+            { "PlayerHurt", "event:/PlayerHurt" },
         };
 
         //Param name-to-fmod-name dictionary

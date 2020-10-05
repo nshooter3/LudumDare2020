@@ -110,6 +110,7 @@ public class BeatCommand : MonoBehaviour
             }
             if (stopInputTimer <= 0)
             {
+                FmodFacade.instance.PlayPooledFmodEvent("Miss");
                 MessageSpawner.instance.SpawnMissResult();
                 MissPool.instance.StartMiss(transform.position, Vector3.Scale(transform.parent.transform.localScale, GetScale()));
                 Reset();

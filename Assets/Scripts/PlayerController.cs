@@ -1,4 +1,5 @@
 ﻿using GameManager;
+using HarmonyQuest.Audio;
 using UnityEngine;
 
 public class PlayerController : ManageableObject
@@ -19,7 +20,7 @@ public class PlayerController : ManageableObject
         {
             if (BeatCommandPool.instance.IsInputValid(RhythmTracker.BeatCommandId.A))
             {
-                Debug.Log("Green button hit!");
+                FmodFacade.instance.PlayPooledFmodEvent("HitA");
             }
             else
             {
@@ -30,10 +31,11 @@ public class PlayerController : ManageableObject
         {
             if (BeatCommandPool.instance.IsInputValid(RhythmTracker.BeatCommandId.B))
             {
-                Debug.Log("Red button hit!");
+                FmodFacade.instance.PlayPooledFmodEvent("HitB");
             }
             else
             {
+                FmodFacade.instance.PlayPooledFmodEvent("Miss");
                 BeatCommandPool.instance.Miss();
             }
         }
@@ -41,11 +43,13 @@ public class PlayerController : ManageableObject
         {
             if (Enemy.instance.IsGuardValid())
             {
+                FmodFacade.instance.PlayPooledFmodEvent("Guard");
                 PlayerStuff.instance.Guard();
                 Enemy.instance.ResetFist();
             }
             else
             {
+                FmodFacade.instance.PlayPooledFmodEvent("Miss");
                 PlayerStuff.instance.GuardMiss();
             }
         }

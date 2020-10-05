@@ -228,6 +228,9 @@ retry:
             result = studioSystem.getCoreSystem(out coreSystem);
             CheckInitResult(result, "FMOD.Studio.System.getCoreSystem");
 
+            result = coreSystem.setDSPBufferSize(256, 2);
+            CheckInitResult(result, "FMOD.Studio.setDSPBufferSize");
+
             result = coreSystem.setOutput(outputType);
             CheckInitResult(result, "FMOD.System.setOutput");
 

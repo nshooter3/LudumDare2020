@@ -1,4 +1,13 @@
 {e9df6d91-b4cf-4ecf-8f21-07c0fdfc9211} event:/BattleTheme
+{26e4386e-3f9d-4b90-9de5-8c87431cf8a7} event:/BossDeath
+{0e12521d-c7aa-476d-aef4-2ebd418eade8} event:/Caution
+{7cebfc26-ccfb-4801-a97c-3c9a9b66f892} event:/Fist
+{0bade0d8-e42c-430c-aa87-ceb9b8bfccfe} event:/Guard
+{b4aa5870-26b2-48e0-9b50-47e22e90e32b} event:/HitA
+{c5556f23-a631-429c-ba56-cf37fb7b7ade} event:/HitB
+{0230a804-c1bd-4d3e-b748-0cdf3da82ac8} event:/Miss
+{68413e7e-4a4a-4f69-b0c7-58e0b6435918} event:/PlayeDeath
+{fc8055e3-0c24-46b8-b5b5-57507ddbcaf9} event:/PlayerHurt
 {0cdbcedb-9e11-4324-92cc-93eac7d2ffd6} bus:/
 {6f05fa67-7ce8-4976-8c05-959ca20c5fe7} bus:/Reverb
 {533f9e44-975a-4906-9302-1e390270ac0c} bank:/Master Bank
